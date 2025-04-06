@@ -1,7 +1,6 @@
 # Tercera tarea de APA: Multiplicaciones de vectores y ortogonalidad
 
-## Nom i cognoms
-
+## Sebastian Pérez Capitano
 El fichero `algebra/vectores.py` incluye la definición de la clase `Vector` con los
 métodos desarrollados en clase, que incluyen la construcción, representación y
 adición de vectores, entre otros.
@@ -82,6 +81,91 @@ Inserte a continuación el código de los métodos desarrollados en esta tarea, 
 comandos necesarios para que se realice el realce sintáctico en Python del mismo (no
 vale insertar una imagen o una captura de pantalla, debe hacerse en formato *markdown*).
 
+
+```py
+def __mul__(self, other)
+    """
+    Multiplica el vector por un escalar o realiza el producto de Hadamard con otro vector.
+    
+    Args:
+        other: escalar o vector.
+
+    Returns:
+        Vector con el resultado de la operación.
+    """
+    if isinstance(other, (int, float, complex)):
+        return Vector(valor * other for valor in self)
+    else:
+        return Vector(a * b for a, b in zip(self, other))
+```
+```py
+def __rmul__(self, other):
+    """
+    Multiplicación reflejada para permitir escalar * vector.
+    
+    Args:
+        other: escalar.
+
+    Returns:
+        Vector multiplicado.
+    """
+    return self * other
+```
+```py
+def __matmul__(self, other):
+    """
+    Producto escalar entre dos vectores.
+
+    Args:
+        other: otro vector.
+
+    Returns:
+        Escalar resultante del producto escalar.
+    """
+    return sum(a * b for a, b in zip(self, other))
+```
+```py
+def __rmatmul__(self, other):
+    """
+    Producto escalar reflejado.
+
+    Args:
+        other: otro vector.
+
+    Returns:
+        Escalar resultante del producto escalar.
+    """
+    return self @ other
+```
+```py
+def __floordiv__(self, other):
+    """
+    Devuelve la componente paralela (tangencial) del vector respecto a otro vector.
+
+    Args:
+        other: vector respecto al cual se proyecta.
+
+    Returns:
+        Vector con la componente paralela.
+    """
+    escalar = (self @ other) / (other @ other)
+    return escalar * other
+```
+```py
+def __mod__(self, other):
+    """
+    Devuelve la componente perpendicular (normal) del vector respecto a otro vector.
+
+    Args:
+        other: vector respecto al cual se calcula la componente.
+
+    Returns:
+        Vector con la componente perpendicular.
+    """
+    return self - (self // other)
+
+```
+
 #### Subida del resultado al repositorio GitHub y *pull-request*
 
 La entrega se formalizará mediante *pull request* al repositorio de la tarea.
@@ -89,3 +173,7 @@ La entrega se formalizará mediante *pull request* al repositorio de la tarea.
 El fichero `README.md` deberá respetar las reglas de los ficheros Markdown y
 visualizarse correctamente en el repositorio, incluyendo la imagen con la ejecución de
 los tests unitarios y el realce sintáctico del código fuente insertado.
+
+### Test Unitario.
+
+![image](algebra\apat3.jpg)
