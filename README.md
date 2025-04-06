@@ -176,4 +176,4 @@ los tests unitarios y el realce sintáctico del código fuente insertado.
 
 ### Test Unitario.
 
-![image](algebra\apat3.jpg)
+![image](apat3.jpg)
